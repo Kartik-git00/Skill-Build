@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | Skill-Build</title>
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body class="dashboard-loading">
+
+    <!-- =====================================================
+         AUTHENTICATION LOADING SCREEN
+         ===================================================== -->
+
+    <div
+        id="dashboardLoader"
+        class="dashboard-loader"
+    >
+
+        <div class="dashboard-loader-spinner"></div>
+
+        <p>
+            Checking your session...
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         DASHBOARD CONTENT
+         Hidden until authentication is verified.
+         ===================================================== -->
+
+    <div id="dashboardContent">
+
+
+        <!-- =================================================
+             NAVBAR
+             ================================================= -->
+
+        <header class="dashboard-navbar">
+
+            <div class="container dashboard-navbar-inner">
+
+                <a
+                    href="/"
+                    class="logo"
+                >
+                    Skill-Build
+                </a>
+
+
+                <div class="dashboard-user-area">
+
+                    <span
+                        id="userName"
+                        class="dashboard-user-name"
+                    >
+                        Loading...
+                    </span>
+
+
+                    <button
+                        id="logoutButton"
+                        class="btn btn-outline"
+                        type="button"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             DASHBOARD MAIN
+             ================================================= -->
+
+        <main class="dashboard-page">
+
+            <div class="container">
+
+
+                <!-- =============================================
+                     DASHBOARD HEADER
+                     ============================================= -->
+
+                <section class="dashboard-header">
+
+                    <span class="section-label">
+                        MY LEARNING
+                    </span>
+
+
+                    <h1>
+
+                        Welcome back,
+
+                        <span id="welcomeName">
+                            Learner
+                        </span>.
+
+                    </h1>
+
+
+                    <p>
+                        Continue building your Computer Science
+                        skills.
+                    </p>
+
+                </section>
+
+
+                <!-- =============================================
+                     STATISTICS
+                     ============================================= -->
+
+                <section class="dashboard-grid">
+
+
+                    <!-- COURSES -->
+
+                    <article class="dashboard-card">
+
+                        <span class="dashboard-card-label">
+                            COURSES
+                        </span>
+
+
+                        <strong>
+                            0
+                        </strong>
+
+
+                        <p>
+                            Courses started
+                        </p>
+
+                    </article>
+
+
+                    <!-- PROGRESS -->
+
+                    <article class="dashboard-card">
+
+                        <span class="dashboard-card-label">
+                            PROGRESS
+                        </span>
+
+
+                        <strong>
+                            0%
+                        </strong>
+
+
+                        <p>
+                            Overall progress
+                        </p>
+
+                    </article>
+
+
+                    <!-- QUIZZES -->
+
+                    <article class="dashboard-card">
+
+                        <span class="dashboard-card-label">
+                            QUIZZES
+                        </span>
+
+
+                        <strong>
+                            0
+                        </strong>
+
+
+                        <p>
+                            Quizzes completed
+                        </p>
+
+                    </article>
+
+
+                </section>
+
+
+                <!-- =============================================
+                     LEARNING SPACE
+                     ============================================= -->
+
+                <section class="dashboard-placeholder">
+
+                    <h2>
+                        Your learning space
+                    </h2>
+
+
+                    <p>
+                        Courses, lessons, progress, quizzes
+                        and saved resources will appear here
+                        as we build Skill-Build.
+                    </p>
+
+                </section>
+
+
+            </div>
+
+        </main>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         SUPABASE CONFIGURATION
+         ===================================================== -->
+
+    <script>
+
+        const SUPABASE_URL =
+            "{{ supabase_url }}";
+
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "{{ supabase_publishable_key }}";
+
+    </script>
+
+
+    <!-- Supabase JavaScript client -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- Dashboard logic -->
+
+    <script
+        src="{{ url_for('static', filename='js/dashboard.js') }}"
+    ></script>
+
+
+</body>
+
+</html>
