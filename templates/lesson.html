@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {{ lesson.title }} | Skill-Build
+    </title>
+
+
+    <!-- =====================================================
+         LOAD SAVED THEME BEFORE PAGE RENDERS
+         ===================================================== -->
+<script>
+        (() => {
+
+            try {
+
+                const savedTheme =
+                    localStorage.getItem(
+                        "skillBuildTheme"
+                    );
+
+
+                if (
+                    savedTheme === "dark" ||
+                    savedTheme === "light"
+                ) {
+
+                    document.documentElement.setAttribute(
+                        "data-theme",
+                        savedTheme
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.warn(
+                    "Unable to load saved theme:",
+                    error
+                );
+
+            }
+
+        })();
+
+    </script>
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for(
+            'static',
+            filename='css/style.css'
+        ) }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <header class="navbar">
+
+        <div class="container navbar-container">
+
+
+            <a
+                href="/"
+                class="logo"
+            >
+                Skill-Build
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/#categories">
+                    Explore
+                </a>
+
+                <a href="/#about">
+                    About
+                </a>
+
+            </nav>
+
+
+            <div class="nav-actions">
+
+
+                <!-- THEME SWITCHER -->
+
+                <div
+                    class="theme-switcher"
+                    aria-label="Theme selection"
+                >
+
+                    <button
+                        type="button"
+                        class="theme-button"
+                        id="lightThemeButton"
+                        data-theme="light"
+                        aria-label="Switch to light mode"
+                        aria-pressed="false"
+                        title="Light mode"
+                    >
+                        ☀
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="theme-button"
+                        id="darkThemeButton"
+                        data-theme="dark"
+                        aria-label="Switch to dark mode"
+                        aria-pressed="false"
+                        title="Dark mode"
+                    >
+                        🌙
+                    </button>
+
+                </div>
+
+
+                <a
+                    href="/login"
+                    class="btn btn-outline"
+                >
+                    Login
+                </a>
+
+
+                <a
+                    href="/signup"
+                    class="btn btn-primary"
+                >
+                    Sign Up
+                </a>
+
+
+            </div>
+
+
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+
+        </div>
+
+
+        <!-- =================================================
+             MOBILE MENU
+             ================================================= -->
+
+        <div
+            class="mobile-menu"
+            id="mobileMenu"
+        >
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/#categories">
+                Explore
+            </a>
+
+            <a href="/#about">
+                About
+            </a>
+
+
+            <div class="mobile-theme-switcher">
+
+                <button
+                    type="button"
+                    class="theme-button"
+                    id="mobileLightThemeButton"
+                    data-theme="light"
+                    aria-label="Switch to light mode"
+                    title="Light mode"
+                >
+                    ☀ Light
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theme-button"
+                    id="mobileDarkThemeButton"
+                    data-theme="dark"
+                    aria-label="Switch to dark mode"
+                    title="Dark mode"
+                >
+                    🌙 Dark
+                </button>
+
+            </div>
+
+
+            <div class="mobile-menu-actions">
+
+                <a
+                    href="/login"
+                    class="btn btn-outline"
+                >
+                    Login
+                </a>
+
+
+                <a
+                    href="/signup"
+                    class="btn btn-primary"
+                >
+                    Sign Up
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         LESSON
+         ===================================================== -->
+
+    <main
+    class="lesson-page"
+    data-lesson-id="{{ lesson.id }}"
+    data-course-id="{{ course.id }}"
+>
+
+        <div class="container">
+
+
+            <!-- BACK TO COURSE -->
+
+            <a
+                href="{{ url_for(
+                    'course_page',
+                    course_slug=course.slug
+                ) }}"
+                class="back-link"
+            >
+                ← Back to {{ course.title }}
+            </a>
+
+
+
+            <!-- LESSON HEADER -->
+
+            <section class="lesson-header">
+
+                <div class="lesson-header-meta">
+
+                    <span class="section-label">
+                        LESSON
+                    </span>
+
+
+                    <span class="lesson-header-number">
+                        {{ lesson.lesson_order }}
+                    </span>
+
+
+                    <span class="lesson-header-time">
+                        {{ lesson.estimated_minutes }} min
+                    </span>
+
+
+                </div>
+
+
+                <h1>
+                    {{ lesson.title }}
+                </h1>
+
+
+                <p>
+                    {{ course.title }}
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 LESSON LAYOUT
+                 ================================================= -->
+
+            <div class="lesson-layout">
+
+
+                <!-- =================================================
+                     SIDEBAR
+                     ================================================= -->
+
+                <aside class="lesson-sidebar">
+
+                    <div class="lesson-sidebar-card">
+
+                        <h3>
+                            Course lessons
+                        </h3>
+
+
+                        <div class="lesson-sidebar-list">
+
+                            {% for item in lessons %}
+
+                                <a
+                                    href="{{ url_for(
+                                        'lesson_page',
+                                        lesson_slug=item.slug
+                                    ) }}"
+                                    class="
+                                        lesson-sidebar-item
+                                        {% if item.id == lesson.id %}
+                                            active
+                                        {% endif %}
+                                    "
+                                >
+
+                                    <span>
+                                        {{ "%02d" | format(
+                                            item.lesson_order
+                                        ) }}
+                                    </span>
+
+
+                                    <strong>
+                                        {{ item.title }}
+                                    </strong>
+
+                                </a>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+
+
+                <!-- =================================================
+                     MAIN CONTENT
+                     ================================================= -->
+
+                <article class="lesson-content-area">
+
+
+                    <div class="lesson-content-card">
+
+
+                        {% if lesson.content %}
+
+                            <div class="lesson-content">
+
+                                {{ lesson.content | safe }}
+
+                            </div>
+
+
+                        {% else %}
+
+                            <div class="lesson-empty">
+
+                                <h2>
+                                    Lesson content coming soon
+                                </h2>
+
+
+                                <p>
+                                    The content for this lesson
+                                    hasn't been added yet.
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         LESSON COMPLETION
+                         ================================================= -->
+
+                    <section
+                        class="lesson-completion-card"
+                        id="lessonCompletionCard"
+                    >
+
+                        <div class="lesson-completion-content">
+
+                            <span class="section-label">
+                                YOUR PROGRESS
+                            </span>
+
+
+                            <h2>
+                                Finished this lesson?
+                            </h2>
+
+
+                            <p id="lessonCompletionText">
+                                Mark this lesson complete when
+                                you've finished learning it.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="markLessonCompleteButton"
+                        >
+                            Mark as Complete
+                        </button>
+
+                    <div
+                        id="courseEnrollmentRequired"
+                        class="course-enrollment-required"
+                        hidden
+                    >
+                        <p>
+                            Start this course from the course page
+                            to add it to your learning dashboard.
+                        </p>
+
+                        <a
+                            href="{{ url_for(
+                                'course_page',
+                                course_slug=course.slug
+                            ) }}"
+                            class="btn btn-outline"
+                        >
+                            Back to Course
+                        </a>
+                    </div>
+
+
+                    <!-- =================================================
+                         LOGIN MESSAGE
+                         ================================================= -->
+
+                    <p
+                        id="lessonAuthMessage"
+                        class="lesson-auth-message"
+                    ></p>
+
+
+                    <!-- =================================================
+                         LESSON NAVIGATION
+                         ================================================= -->
+
+                    <div class="lesson-navigation">
+
+
+                        {% if previous_lesson %}
+
+                            <a
+                                href="{{ url_for(
+                                    'lesson_page',
+                                    lesson_slug=previous_lesson.slug
+                                ) }}"
+                                class="lesson-navigation-link previous"
+                            >
+
+                                <span>
+                                    ← Previous
+                                </span>
+
+
+                                <strong>
+                                    {{ previous_lesson.title }}
+                                </strong>
+
+                            </a>
+
+
+                        {% else %}
+
+                            <div></div>
+
+                        {% endif %}
+
+
+
+                        {% if next_lesson %}
+
+                            <a
+                                href="{{ url_for(
+                                    'lesson_page',
+                                    lesson_slug=next_lesson.slug
+                                ) }}"
+                                class="lesson-navigation-link next"
+                            >
+
+                                <span>
+                                    Next →
+                                </span>
+
+
+                                <strong>
+                                    {{ next_lesson.title }}
+                                </strong>
+
+                            </a>
+
+                        {% endif %}
+
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-container">
+
+
+            <div>
+
+                <h3>
+                    Skill-Build
+                </h3>
+
+
+                <p>
+                    Learn. Practice. Build.
+                </p>
+
+            </div>
+
+
+            <p>
+                © 2026 Skill-Build. All rights reserved.
+            </p>
+
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         SUPABASE CONFIGURATION
+         ===================================================== -->
+
+    <script>
+
+        const SUPABASE_URL =
+            "{{ supabase_url }}";
+
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "{{ supabase_publishable_key }}";
+
+    </script>
+
+
+
+    <!-- =====================================================
+         SUPABASE CLIENT
+         ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+
+    <!-- =====================================================
+         MAIN SITE JAVASCRIPT
+         ===================================================== -->
+
+    <script
+        src="{{ url_for(
+            'static',
+            filename='js/main.js'
+        ) }}"
+    ></script>
+
+
+
+    <!-- =====================================================
+         THEME JAVASCRIPT
+         ===================================================== -->
+
+    <script
+        src="{{ url_for(
+            'static',
+            filename='js/theme.js'
+        ) }}"
+    ></script>
+
+
+
+    <!-- =====================================================
+         LESSON JAVASCRIPT
+         ===================================================== -->
+
+    <script
+        src="{{ url_for(
+            'static',
+            filename='js/lesson.js'
+        ) }}"
+    ></script>
+
+
+</body>
+
+</html>

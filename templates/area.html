@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {{ area.name }} | Skill-Build
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for(
+            'static',
+            filename='css/style.css'
+        ) }}"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <header class="navbar">
+
+        <div class="container navbar-container">
+
+            <a
+                href="/"
+                class="logo"
+            >
+                Skill-Build
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/#categories">
+                    Explore
+                </a>
+
+                <a href="/#resources">
+                    Resources
+                </a>
+
+                <a href="/#about">
+                    About
+                </a>
+
+            </nav>
+
+
+            <div class="nav-actions">
+
+                <div class="theme-switcher" aria-label="Theme selection">
+
+                    <button
+                        type="button"
+                        class="theme-button active"
+                        id="lightThemeButton"
+                        aria-label="Switch to light mode"
+                        title="Light mode"
+                    >
+                        ☀
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="theme-button"
+                        id="darkThemeButton"
+                        aria-label="Switch to dark mode"
+                        title="Dark mode"
+                    >
+                        🌙
+                    </button>
+
+                </div>
+
+
+                <a
+                    href="/login"
+                    class="btn btn-outline"
+                >
+                    Login
+                </a>
+
+
+                <a
+                    href="/signup"
+                    class="btn btn-primary"
+                >
+                    Sign Up
+                </a>
+
+            </div>
+
+
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+        </div>
+
+
+        <div
+            class="mobile-menu"
+            id="mobileMenu"
+        >
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/#categories">
+                Explore
+            </a>
+
+            <a href="/#resources">
+                Resources
+            </a>
+
+            <a href="/#about">
+                About
+            </a>
+
+
+            <div class="mobile-theme-switcher" aria-label="Mobile theme selection">
+
+                <button
+                    type="button"
+                    class="theme-button active"
+                    id="mobileLightThemeButton"
+                    aria-label="Switch to light mode"
+                    title="Light mode"
+                >
+                    ☀ Light
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theme-button"
+                    id="mobileDarkThemeButton"
+                    aria-label="Switch to dark mode"
+                    title="Dark mode"
+                >
+                    🌙 Dark
+                </button>
+
+            </div>
+
+
+            <div class="mobile-menu-actions">
+
+                <a
+                    href="/login"
+                    class="btn btn-outline"
+                >
+                    Login
+                </a>
+
+                <a
+                    href="/signup"
+                    class="btn btn-primary"
+                >
+                    Sign Up
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         AREA HEADER
+         ===================================================== -->
+
+    <main>
+
+        <section class="course-list-header">
+
+            <div class="container">
+
+                <a
+    href="/"
+    class="back-link"
+>
+    ← Back to Computer Science
+</a>
+
+
+<h1>
+    {{ area.name }}
+</h1>
+
+
+<p>
+    {{ area.description }}
+</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COURSES
+             ================================================= -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="section-heading area-heading">
+
+                    <span class="section-label">
+                        COURSES
+                    </span>
+
+
+                    <h2>
+                        Start learning
+                    </h2>
+
+
+                    <p>
+                        Choose a course and build your
+                        knowledge step by step.
+                    </p>
+
+                </div>
+
+
+                {% if courses %}
+
+                    <div class="course-grid">
+
+                        {% for course in courses %}
+
+                            <article class="course-card">
+
+                                <div class="course-card-top">
+
+                                    <span
+                                        class="course-difficulty {{ course.difficulty }}"
+                                    >
+                                        {{ course.difficulty }}
+                                    </span>
+
+
+                                    <span class="course-time">
+                                        {{ course.estimated_minutes }}
+                                        min
+                                    </span>
+
+                                </div>
+
+
+                                <h3>
+                                    {{ course.title }}
+                                </h3>
+
+
+                                <p>
+                                    {{ course.description }}
+                                </p>
+
+
+                                <a
+                                    href="{{ url_for(
+                                        'course_page',
+                                        course_slug=course.slug
+                                    ) }}"
+                                    class="course-link"
+                                >
+                                    View Course →
+                                </a>
+
+                            </article>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <h3>
+                            No courses available yet
+                        </h3>
+
+                        <p>
+                            Courses for this area will be
+                            added soon.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-container">
+
+            <div>
+
+                <h3>
+                    Skill-Build
+                </h3>
+
+                <p>
+                    Learn. Practice. Build.
+                </p>
+
+            </div>
+
+
+            <p>
+                © 2026 Skill-Build. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script
+        src="{{ url_for(
+            'static',
+            filename='js/theme.js'
+        ) }}"
+    ></script>
+
+
+    <script
+        src="{{ url_for(
+            'static',
+            filename='js/main.js'
+        ) }}"
+    ></script>
+
+</body>
+
+</html>

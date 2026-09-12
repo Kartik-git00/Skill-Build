@@ -1,266 +1,87 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Dashboard | Skill-Build</title>
-
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}"
-    >
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | Skill-Build</title>
+<script>
+(() => { try { const t=localStorage.getItem("skillBuildTheme"); if(t==="dark"||t==="light") document.documentElement.setAttribute("data-theme",t); } catch(e) {} })();
+</script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
-
 <body class="dashboard-loading">
-
-    <!-- =====================================================
-         AUTHENTICATION LOADING SCREEN
-         ===================================================== -->
-
-    <div
-        id="dashboardLoader"
-        class="dashboard-loader"
-    >
-
-        <div class="dashboard-loader-spinner"></div>
-
-        <p>
-            Checking your session...
-        </p>
-
-    </div>
-
-
-    <!-- =====================================================
-         DASHBOARD CONTENT
-         Hidden until authentication is verified.
-         ===================================================== -->
-
-    <div id="dashboardContent">
-
-
-        <!-- =================================================
-             NAVBAR
-             ================================================= -->
-
-        <header class="dashboard-navbar">
-
-            <div class="container dashboard-navbar-inner">
-
-                <a
-                    href="/"
-                    class="logo"
-                >
-                    Skill-Build
-                </a>
-
-
-                <div class="dashboard-user-area">
-
-                    <span
-                        id="userName"
-                        class="dashboard-user-name"
-                    >
-                        Loading...
-                    </span>
-
-
-                    <button
-                        id="logoutButton"
-                        class="btn btn-outline"
-                        type="button"
-                    >
-                        Logout
-                    </button>
-
-                </div>
-
-            </div>
-
-        </header>
-
-
-        <!-- =================================================
-             DASHBOARD MAIN
-             ================================================= -->
-
-        <main class="dashboard-page">
-
-            <div class="container">
-
-
-                <!-- =============================================
-                     DASHBOARD HEADER
-                     ============================================= -->
-
-                <section class="dashboard-header">
-
-                    <span class="section-label">
-                        MY LEARNING
-                    </span>
-
-
-                    <h1>
-
-                        Welcome back,
-
-                        <span id="welcomeName">
-                            Learner
-                        </span>.
-
-                    </h1>
-
-
-                    <p>
-                        Continue building your Computer Science
-                        skills.
-                    </p>
-
-                </section>
-
-
-                <!-- =============================================
-                     STATISTICS
-                     ============================================= -->
-
-                <section class="dashboard-grid">
-
-
-                    <!-- COURSES -->
-
-                    <article class="dashboard-card">
-
-                        <span class="dashboard-card-label">
-                            COURSES
-                        </span>
-
-
-                        <strong>
-                            0
-                        </strong>
-
-
-                        <p>
-                            Courses started
-                        </p>
-
-                    </article>
-
-
-                    <!-- PROGRESS -->
-
-                    <article class="dashboard-card">
-
-                        <span class="dashboard-card-label">
-                            PROGRESS
-                        </span>
-
-
-                        <strong>
-                            0%
-                        </strong>
-
-
-                        <p>
-                            Overall progress
-                        </p>
-
-                    </article>
-
-
-                    <!-- QUIZZES -->
-
-                    <article class="dashboard-card">
-
-                        <span class="dashboard-card-label">
-                            QUIZZES
-                        </span>
-
-
-                        <strong>
-                            0
-                        </strong>
-
-
-                        <p>
-                            Quizzes completed
-                        </p>
-
-                    </article>
-
-
-                </section>
-
-
-                <!-- =============================================
-                     LEARNING SPACE
-                     ============================================= -->
-
-                <section class="dashboard-placeholder">
-
-                    <h2>
-                        Your learning space
-                    </h2>
-
-
-                    <p>
-                        Courses, lessons, progress, quizzes
-                        and saved resources will appear here
-                        as we build Skill-Build.
-                    </p>
-
-                </section>
-
-
-            </div>
-
-        </main>
-
-
-    </div>
-
-
-    <!-- =====================================================
-         SUPABASE CONFIGURATION
-         ===================================================== -->
-
-    <script>
-
-        const SUPABASE_URL =
-            "{{ supabase_url }}";
-
-
-        const SUPABASE_PUBLISHABLE_KEY =
-            "{{ supabase_publishable_key }}";
-
-    </script>
-
-
-    <!-- Supabase JavaScript client -->
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-    ></script>
-
-
-    <!-- Dashboard logic -->
-
-    <script
-        src="{{ url_for('static', filename='js/dashboard.js') }}"
-    ></script>
-
-
+<div id="dashboardLoader" class="dashboard-loader"><div class="dashboard-loader-spinner"></div><p>Checking your session...</p></div>
+<div id="dashboardContent">
+<header class="dashboard-navbar">
+<div class="container dashboard-navbar-inner">
+<a href="/" class="logo">Skill-Build</a>
+<div class="dashboard-user-area">
+<div class="theme-switcher" aria-label="Theme selection">
+<button type="button" class="theme-button" id="lightThemeButton" data-theme="light" aria-label="Switch to light mode">☀</button>
+<button type="button" class="theme-button" id="darkThemeButton" data-theme="dark" aria-label="Switch to dark mode">🌙</button>
+</div>
+<span id="userName" class="dashboard-user-name">Loading...</span>
+<a href="/" class="btn btn-outline">Home</a>
+<button id="logoutButton" class="btn btn-outline" type="button">Logout</button>
+</div>
+</div>
+</header>
+<main class="dashboard-page">
+<div class="container">
+<section class="dashboard-header">
+<span class="section-label">MY LEARNING</span>
+<h1>Welcome back, <span id="welcomeName">Learner</span>.</h1>
+<p>Continue building your Computer Science skills.</p>
+</section>
+<section class="dashboard-grid">
+<article class="dashboard-card"><span class="dashboard-card-label">COURSES</span><strong id="coursesStarted">0</strong><p>Courses started</p></article>
+<article class="dashboard-card"><span class="dashboard-card-label">PROGRESS</span><strong id="overallProgress">0%</strong><p>Overall progress</p></article>
+<article class="dashboard-card"><span class="dashboard-card-label">QUIZZES</span><strong id="quizzesCompleted">0</strong><p>Quiz attempts</p></article>
+</section>
+<section class="dashboard-section">
+<div class="dashboard-section-header"><div><span class="section-label">CONTINUE LEARNING</span><h2>Pick up where you left off.</h2></div></div>
+<div id="continueLearning"></div>
+<div id="continueEmpty" class="dashboard-placeholder" hidden><h3>Nothing to continue yet</h3><p>Start a course to build your learning library.</p><a href="/#categories" class="btn btn-primary">Explore Courses</a></div>
+</section>
+<section class="dashboard-section">
+<div class="dashboard-section-header"><div><span class="section-label">MY COURSES</span><h2>Your learning library.</h2><p>Courses you have enrolled in.</p></div><a href="/#categories" class="btn btn-outline">Explore Courses</a></div>
+<div id="myCourses" class="my-courses-grid"></div>
+<div id="coursesEmpty" class="dashboard-placeholder" hidden><h3>No courses yet</h3><p>Start a course and it will appear here.</p><a href="/#categories" class="btn btn-primary">Find a Course</a></div>
+</section>
+<section class="dashboard-section">
+<div class="dashboard-section-header"><div><span class="section-label">YOUR GOALS</span><h2>Stay consistent. Keep growing.</h2><p>Set daily or weekly learning targets.</p></div><button type="button" class="btn btn-primary" id="addGoalButton">+ Add Goal</button></div>
+<div id="goalMessage" class="dashboard-goal-message"></div>
+<div id="goalsList" class="goals-list"></div>
+<div id="goalsEmptyState" class="dashboard-placeholder goals-empty-state"><h3>Set your first learning goal</h3><p>Start with a small target and keep building.</p><button type="button" class="btn btn-primary" id="emptyAddGoalButton">Create a Goal</button></div>
+</section>
+<section class="dashboard-section">
+<div class="dashboard-section-header"><div><span class="section-label">RECENT ACTIVITY</span><h2>Your latest learning activity.</h2></div></div>
+<div id="recentActivity" class="recent-activity"></div>
+<div id="activityEmpty" class="dashboard-placeholder"><h3>No activity yet</h3><p>Complete lessons to build your learning history.</p></div>
+</section>
+</div>
+</main>
+</div>
+<div id="goalModal" class="goal-modal" aria-hidden="true">
+<div id="goalModalBackdrop" class="goal-modal-backdrop"></div>
+<section class="goal-modal-card" role="dialog" aria-modal="true" aria-labelledby="goalModalTitle">
+<div class="goal-modal-header"><div><span class="section-label">NEW GOAL</span><h2 id="goalModalTitle">Create a learning goal</h2></div><button type="button" class="goal-modal-close" id="closeGoalModalButton" aria-label="Close">×</button></div>
+<form id="goalForm" class="goal-form">
+<div class="goal-form-group"><label for="goalTitle">Goal name</label><input id="goalTitle" type="text" maxlength="100" placeholder="Example: Complete 3 lessons" required></div>
+<div class="goal-form-row"><div class="goal-form-group"><label for="goalType">Frequency</label><select id="goalType"><option value="daily">Daily</option><option value="weekly">Weekly</option></select></div><div class="goal-form-group"><label for="goalMetric">Measure</label><select id="goalMetric"><option value="lessons_completed">Lessons completed</option><option value="quizzes_completed">Quizzes completed</option><option value="courses_completed">Courses completed</option><option value="study_minutes">Study minutes</option></select></div></div>
+<div class="goal-form-group"><label for="goalTarget">Target</label><input id="goalTarget" type="number" min="1" max="100000" placeholder="3" required><small id="goalTargetHint" class="goal-form-hint">Example: 3 lessons</small></div>
+<p id="goalFormMessage" class="goal-form-message"></p>
+<div class="goal-modal-actions"><button type="button" class="btn btn-outline" id="cancelGoalButton">Cancel</button><button type="submit" class="btn btn-primary" id="saveGoalButton">Save Goal</button></div>
+</form>
+</section>
+</div>
+<script>
+const SUPABASE_URL = "{{ supabase_url }}";
+const SUPABASE_PUBLISHABLE_KEY = "{{ supabase_publishable_key }}";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="{{ url_for('static', filename='js/auth-session.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 </body>
-
 </html>

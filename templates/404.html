@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Page Not Found | Skill-Build
+    </title>
+
+
+    <!-- =====================================================
+         LOAD SAVED THEME BEFORE PAGE RENDERS
+         ===================================================== -->
+
+    <script>
+
+        (() => {
+
+            const savedTheme =
+                localStorage.getItem(
+                    "skillBuildTheme"
+                );
+
+
+            if (
+                savedTheme === "dark" ||
+                savedTheme === "light"
+            ) {
+
+                document.documentElement.setAttribute(
+                    "data-theme",
+                    savedTheme
+                );
+
+            }
+
+        })();
+
+    </script>
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for(
+            'static',
+            filename='css/style.css'
+        ) }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         404 PAGE
+         ===================================================== -->
+
+    <main class="auth-page">
+
+
+        <section class="auth-card">
+
+
+            <!-- =============================================
+                 THEME SWITCHER
+                 ============================================= -->
+
+            <div class="auth-theme-switcher">
+
+                <div
+                    class="theme-switcher"
+                    aria-label="Theme selection"
+                >
+
+
+                    <button
+                        type="button"
+                        class="theme-button"
+                        id="lightThemeButton"
+                        data-theme="light"
+                        aria-label="Switch to light mode"
+                        aria-pressed="false"
+                        title="Light mode"
+                    >
+                        ☀
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="theme-button"
+                        id="darkThemeButton"
+                        data-theme="dark"
+                        aria-label="Switch to dark mode"
+                        aria-pressed="false"
+                        title="Dark mode"
+                    >
+                        🌙
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 LOGO
+                 ============================================= -->
+
+            <a
+                href="/"
+                class="auth-logo"
+            >
+                Skill-Build
+            </a>
+
+
+            <!-- =============================================
+                 MESSAGE
+                 ============================================= -->
+
+            <div class="auth-heading">
+
+
+                <span class="auth-eyebrow">
+                    404
+                </span>
+
+
+                <h1>
+                    Page not found
+                </h1>
+
+
+                <p>
+                    The page you're looking for
+                    doesn't exist.
+                </p>
+
+
+            </div>
+
+
+            <!-- =============================================
+                 HOME BUTTON
+                 ============================================= -->
+
+            <a
+                href="/"
+                class="btn btn-primary auth-submit"
+            >
+                Back to Home
+            </a>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         THEME LOGIC
+         ===================================================== -->
+
+    <script
+        src="{{ url_for(
+            'static',
+            filename='js/theme.js'
+        ) }}"
+    ></script>
+
+
+</body>
+
+</html>

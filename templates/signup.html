@@ -11,11 +11,61 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Sign Up | Skill-Build</title>
+    <title>
+        Sign Up | Skill-Build
+    </title>
+
+
+    <!-- =====================================================
+         LOAD SAVED THEME BEFORE PAGE RENDERS
+         ===================================================== -->
+
+    <script>
+
+        (() => {
+
+            try {
+
+                const savedTheme =
+                    localStorage.getItem(
+                        "skillBuildTheme"
+                    );
+
+
+                if (
+                    savedTheme === "dark" ||
+                    savedTheme === "light"
+                ) {
+
+                    document.documentElement.setAttribute(
+                        "data-theme",
+                        savedTheme
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.warn(
+                    "Unable to load saved theme:",
+                    error
+                );
+
+            }
+
+        })();
+
+    </script>
+
 
     <link
         rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}"
+        href="{{ url_for(
+            'static',
+            filename='css/style.css'
+        ) }}"
     >
 
 </head>
@@ -23,9 +73,58 @@
 
 <body class="auth-body">
 
+
     <main class="auth-page">
 
+
         <section class="auth-card">
+
+
+            <!-- =================================================
+                 THEME SWITCHER
+                 ================================================= -->
+
+            <div class="auth-theme-switcher">
+
+                <div
+                    class="theme-switcher"
+                    aria-label="Theme selection"
+                >
+
+                    <button
+                        type="button"
+                        class="theme-button"
+                        id="lightThemeButton"
+                        data-theme="light"
+                        aria-label="Switch to light mode"
+                        aria-pressed="false"
+                        title="Light mode"
+                    >
+                        ☀
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="theme-button"
+                        id="darkThemeButton"
+                        data-theme="dark"
+                        aria-label="Switch to dark mode"
+                        aria-pressed="false"
+                        title="Dark mode"
+                    >
+                        🌙
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LOGO
+                 ================================================= -->
 
             <a
                 href="/"
@@ -35,15 +134,22 @@
             </a>
 
 
+
+            <!-- =================================================
+                 HEADING
+                 ================================================= -->
+
             <div class="auth-heading">
 
                 <span class="auth-eyebrow">
                     GET STARTED
                 </span>
 
+
                 <h1>
                     Create your account
                 </h1>
+
 
                 <p>
                     Build your skills, track your progress,
@@ -53,19 +159,28 @@
             </div>
 
 
+
+            <!-- =================================================
+                 SIGNUP FORM
+                 ================================================= -->
+
             <form
                 id="signupForm"
                 class="auth-form"
                 novalidate
             >
 
-                <!-- NAME -->
+
+                <!-- =============================================
+                     NAME
+                     ============================================= -->
 
                 <div class="form-group">
 
                     <label for="name">
                         Name
                     </label>
+
 
                     <input
                         type="text"
@@ -76,6 +191,7 @@
                         required
                     >
 
+
                     <small
                         id="nameError"
                         class="field-error"
@@ -84,13 +200,17 @@
                 </div>
 
 
-                <!-- EMAIL -->
+
+                <!-- =============================================
+                     EMAIL
+                     ============================================= -->
 
                 <div class="form-group">
 
                     <label for="email">
                         Email
                     </label>
+
 
                     <input
                         type="email"
@@ -101,6 +221,7 @@
                         required
                     >
 
+
                     <small
                         id="emailError"
                         class="field-error"
@@ -109,13 +230,17 @@
                 </div>
 
 
-                <!-- PASSWORD -->
+
+                <!-- =============================================
+                     PASSWORD
+                     ============================================= -->
 
                 <div class="form-group">
 
                     <label for="password">
                         Password
                     </label>
+
 
                     <div class="password-input-wrapper">
 
@@ -127,6 +252,7 @@
                             autocomplete="new-password"
                             required
                         >
+
 
                         <button
                             type="button"
@@ -140,11 +266,12 @@
                     </div>
 
 
+
+                    <!-- PASSWORD STRENGTH -->
+
                     <div class="password-strength">
 
-                        <div
-                            class="strength-track"
-                        >
+                        <div class="strength-track">
 
                             <div
                                 class="strength-bar"
@@ -164,7 +291,11 @@
                     </div>
 
 
+
+                    <!-- PASSWORD REQUIREMENTS -->
+
                     <div class="password-requirements">
+
 
                         <span id="lengthRequirement">
 
@@ -209,12 +340,16 @@
 
                         </span>
 
+
                     </div>
 
                 </div>
 
 
-                <!-- CONFIRM PASSWORD -->
+
+                <!-- =============================================
+                     CONFIRM PASSWORD
+                     ============================================= -->
 
                 <div class="form-group">
 
@@ -233,6 +368,7 @@
                             autocomplete="new-password"
                             required
                         >
+
 
                         <button
                             type="button"
@@ -254,7 +390,10 @@
                 </div>
 
 
-                <!-- MESSAGE -->
+
+                <!-- =============================================
+                     MESSAGE
+                     ============================================= -->
 
                 <p
                     id="signupMessage"
@@ -263,7 +402,10 @@
                 ></p>
 
 
-                <!-- SUBMIT -->
+
+                <!-- =============================================
+                     SUBMIT
+                     ============================================= -->
 
                 <button
                     type="submit"
@@ -273,8 +415,14 @@
                     Create Account
                 </button>
 
+
             </form>
 
+
+
+            <!-- =================================================
+                 LOGIN LINK
+                 ================================================= -->
 
             <p class="auth-switch">
 
@@ -287,6 +435,11 @@
             </p>
 
 
+
+            <!-- =================================================
+                 GUEST ACCESS
+                 ================================================= -->
+
             <a
                 href="/"
                 class="guest-link"
@@ -294,10 +447,17 @@
                 Continue as Guest
             </a>
 
+
         </section>
+
 
     </main>
 
+
+
+    <!-- =====================================================
+         SUPABASE CONFIGURATION
+         ===================================================== -->
 
     <script>
 
@@ -311,14 +471,34 @@
     </script>
 
 
+
+    <!-- =====================================================
+         SUPABASE CLIENT
+         ===================================================== -->
+
     <script
         src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
     ></script>
 
 
-    <script
-        src="{{ url_for('static', filename='js/signup.js') }}"
-    ></script>
+
+    <!-- =====================================================
+         SIGNUP LOGIC
+         ===================================================== -->
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/signup.js'
+    ) }}"
+></script>
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/theme.js'
+    ) }}"
+></script>
 
 </body>
 

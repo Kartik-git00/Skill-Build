@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {{ course.title }} | Skill-Build
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for(
+            'static',
+            filename='css/style.css'
+        ) }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <header class="navbar">
+
+        <div class="container navbar-container">
+
+            <a
+                href="/"
+                class="logo"
+            >
+                Skill-Build
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/#categories">
+                    Explore
+                </a>
+
+                <a href="/#about">
+                    About
+                </a>
+
+            </nav>
+
+
+            <div class="nav-actions">
+
+                <div class="theme-switcher" aria-label="Theme selection">
+
+                    <button
+                        type="button"
+                        class="theme-button active"
+                        id="lightThemeButton"
+                        aria-label="Switch to light mode"
+                        title="Light mode"
+                    >
+                        ☀
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="theme-button"
+                        id="darkThemeButton"
+                        aria-label="Switch to dark mode"
+                        title="Dark mode"
+                    >
+                        🌙
+                    </button>
+
+                </div>
+
+
+                <a
+                    href="/login"
+                    class="btn btn-outline"
+                >
+                    Login
+                </a>
+
+
+                <a
+                    href="/signup"
+                    class="btn btn-primary"
+                >
+                    Sign Up
+                </a>
+
+            </div>
+
+
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+        </div>
+
+
+        <div
+            class="mobile-menu"
+            id="mobileMenu"
+        >
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/#categories">
+                Explore
+            </a>
+
+            <a href="/#about">
+                About
+            </a>
+
+
+            <div class="mobile-theme-switcher" aria-label="Mobile theme selection">
+
+                <button
+                    type="button"
+                    class="theme-button active"
+                    id="mobileLightThemeButton"
+                    aria-label="Switch to light mode"
+                    title="Light mode"
+                >
+                    ☀ Light
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theme-button"
+                    id="mobileDarkThemeButton"
+                    aria-label="Switch to dark mode"
+                    title="Dark mode"
+                >
+                    🌙 Dark
+                </button>
+
+            </div>
+
+
+            <div class="mobile-menu-actions">
+
+                <a
+                    href="/login"
+                    class="btn btn-outline"
+                >
+                    Login
+                </a>
+
+
+                <a
+                    href="/signup"
+                    class="btn btn-primary"
+                >
+                    Sign Up
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         COURSE HEADER
+         ===================================================== -->
+
+    <main>
+
+        <section class="course-header">
+
+            <div class="container">
+
+                <a
+                    href="/"
+                    class="back-link"
+                >
+                    ← Back to Computer Science
+                </a>
+
+
+                <div class="course-header-content">
+
+                    <div>
+
+                        <span
+                            class="course-difficulty {{ course.difficulty }}"
+                        >
+                            {{ course.difficulty }}
+                        </span>
+
+
+                        <h1>
+                            {{ course.title }}
+                        </h1>
+
+
+                        <p>
+                            {{ course.description }}
+                        </p>
+
+
+                        <div class="course-meta">
+
+                            <span>
+                                {{ lessons|length }}
+                                lessons
+                            </span>
+
+
+                            <span>
+                                {{ course.estimated_minutes }}
+                                minutes
+                            </span>
+
+                        </div>
+
+                        <div class="course-enrollment-area">
+
+    <button
+        type="button"
+        class="btn btn-primary course-start-button"
+        id="courseStartButton"
+        data-course-id="{{ course.id }}"
+    >
+        Start Course
+    </button>
+
+
+    <p
+        id="courseEnrollmentMessage"
+        class="course-enrollment-message"
+        role="status"
+        aria-live="polite"
+    ></p>
+
+</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LESSONS
+             ================================================= -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        COURSE CONTENT
+                    </span>
+
+
+                    <h2>
+                        Course lessons
+                    </h2>
+
+
+                    <p>
+                        Work through the lessons in order
+                        and build your knowledge step by step.
+                    </p>
+
+                </div>
+
+
+                {% if lessons %}
+
+                    <div class="lesson-list">
+
+                        {% for lesson in lessons %}
+
+                            <article class="lesson-card">
+
+                                <div class="lesson-number">
+
+                                    {{ "%02d" | format(
+                                        lesson.lesson_order
+                                    ) }}
+
+                                </div>
+
+
+                                <div class="lesson-content">
+
+                                    <h3>
+                                        {{ lesson.title }}
+                                    </h3>
+
+
+                                    <div class="lesson-meta">
+
+                                        <span>
+                                            {{ lesson.estimated_minutes }}
+                                            min
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <a
+                                    href="{{ url_for(
+                                        'lesson_page',
+                                        lesson_slug=lesson.slug
+                                    ) }}"
+                                    class="lesson-link"
+                                >
+                                    Start →
+                                </a>
+
+                            </article>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <h3>
+                            No lessons available yet
+                        </h3>
+
+
+                        <p>
+                            Lessons for this course
+                            will be added soon.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-container">
+
+            <div>
+
+                <h3>
+                    Skill-Build
+                </h3>
+
+
+                <p>
+                    Learn. Practice. Build.
+                </p>
+
+            </div>
+
+
+            <p>
+                © 2026 Skill-Build. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+    const SUPABASE_URL =
+        "{{ supabase_url }}";
+
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "{{ supabase_publishable_key }}";
+
+</script>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/theme.js'
+    ) }}"
+></script>
+
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/course.js'
+    ) }}"
+></script>
+
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/main.js'
+    ) }}"
+></script>
+
+</body>
+
+</html>
