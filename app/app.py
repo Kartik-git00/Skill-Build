@@ -2,7 +2,7 @@ from pathlib import Path
 
 from flask import Flask, render_template
 
-from supabase_client import (
+from app.supabase_client import (
     SUPABASE_PUBLISHABLE_KEY,
     SUPABASE_URL,
     supabase,
