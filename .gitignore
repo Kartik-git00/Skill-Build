@@ -15,3 +15,13 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Additional local/private configuration
+.env.*
+!.env.example
+!.env.*.example
+private/
+instance/
+.pytest_cache/
+.coverage
+htmlcov/
